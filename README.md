@@ -3,7 +3,7 @@
 A modern ecommerce cart application built using React, Context API, Tailwind CSS and Vite.
 
 ## 🚀 Live Demo
-👉 https://YOUR-VERCEL-LINK.vercel.app
+👉 [https://YOUR-VERCEL-LINK.vercel.app](https://e-commerce-cart-react-ten.vercel.app)
 
 ## ✨ Features
 

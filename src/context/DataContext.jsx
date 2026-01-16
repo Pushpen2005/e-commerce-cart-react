@@ -1,0 +1,41 @@
+import axios from "axios";
+import { createContext, useContext, useState } from "react";
+
+export const DataContext = createContext(null);
+
+export const DataProvider = ({ children }) => {
+    const [data, setData] = useState()
+
+    // fetching all products from api
+    const fetchAllProducts = async () => {
+  try {
+    const res = await fetch("https://fakestoreapi.com/products");
+
+    if (!res.ok) {
+      throw new Error("Status " + res.status);
+    }
+
+    const result = await res.json();
+    setData(result);
+  } catch (error) {
+    console.log("Fetch Error:", error.message);
+  }
+}
+
+
+    const getUniqueCategory = (data, property) => {
+        let newVal = data?.map((curElem) => {
+            return curElem[property]
+        })
+        newVal = ["All", ...new Set(newVal)]
+        return newVal
+    }
+
+    const categoryOnlyData = getUniqueCategory(data, "category")
+    const brandOnlyData = getUniqueCategory(data, "brand")
+    return <DataContext.Provider value={{ data, setData, fetchAllProducts, categoryOnlyData, brandOnlyData }}>
+        {children}
+    </DataContext.Provider>
+}
+
+export const getData = () => useContext(DataContext)
